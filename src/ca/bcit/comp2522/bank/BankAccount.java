@@ -53,7 +53,7 @@ public class BankAccount {
         withdraw(amountUSD);
     }
     public String getDetails() {
-        return client.getName().getFullname()
+        return client.getName().getFullName()
                 + "had $" + balanceUSD + "Usd in account #"
                 + accountNumber
                 + "which opened on" + accountOpened + "and closed"
