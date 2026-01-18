@@ -54,7 +54,7 @@ public class BankAccount {
     }
     public String getDetails() {
         return client.getName().getFullName()
-                + "had $" + balanceUSD + "Usd in account #"
+                + "had $" + balanceUSD + "USD in account #"
                 + accountNumber
                 + "which opened on" + accountOpened + "and closed"
                 + accountClosed;
