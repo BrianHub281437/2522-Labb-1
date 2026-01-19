@@ -1,27 +1,33 @@
 package ca.bcit.comp2522.bank;
 
 /**
- * Represents a Date class that is used for BankAccount and BankClient
+ * Represents a Date class that is used for BankAccount and BankClient.
  * A Date class stores the year, month and day of the date.
- * Contains simple methods to calculate
  *
  * @author Giant Mak, Brian Lau
  * @version 1.0
  */
 public class Date {
+
+    /* Date fields */
     private final int year;
     private final int month;
     private final int day;
 
+    /* Year limits */
+    private static final int MIN_YEAR = 1800;
     private static final int CURRENT_YEAR = 2026;
 
-    /* Constant for day of week calculations */
+    /* Time constants */
     private static final int MONTHS_IN_YEAR = 12;
-    private static final int DAYS_IN_WEEK   = 7;
-    private static final int FOUR           = 4;
-    private static final int SIX            = 6;
-    private static final int TWO            = 2;
+    private static final int DAYS_IN_WEEK = 7;
+    private static final int FOUR = 4;
+    private static final int SIX = 6;
+    private static final int TWO = 2;
+    private static final int HUNDRED = 100;
+    private static final int FOUR_HUNDRED = 400;
 
+    /* Month numbers */
     private static final int JANUARY = 1;
     private static final int FEBRUARY = 2;
     private static final int MARCH = 3;
@@ -35,6 +41,7 @@ public class Date {
     private static final int NOVEMBER = 11;
     private static final int DECEMBER = 12;
 
+    /* Month codes */
     private static final int JAN_CODE = 1;
     private static final int FEB_CODE = 4;
     private static final int MAR_CODE = 4;
@@ -48,14 +55,92 @@ public class Date {
     private static final int NOV_CODE = 4;
     private static final int DEC_CODE = 6;
 
+    /* Day limits */
+    private static final int MIN_DAY = 1;
     private static final int FEB_MAX_DAY = 29;
     private static final int FEB_MIN_DAY = 28;
-    private static final int AJSN_MIN_DAY = 30;
+    private static final int AJSN_MAX_DAY = 30;
     private static final int REST_MAX_DAY = 31;
+
+    /* Century thresholds */
+    private static final int YEAR_1800 = 1800;
+    private static final int YEAR_1900 = 1900;
+    private static final int YEAR_2000 = 2000;
+
+    /* changed single digits to double digits */
+    private static final int CHNG_TO_DD = 10;
+
     /**
-     *
-     * @return month code for each month
+     * Constructs a Date with validation.
+     * @param year of the date
      */
+    public Date(final int year, final int month, final int day) {
+        validateYear(year);
+        validateMonth(month);
+        validateDay(year, month, day);
+
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    /* ---------------- Validation ---------------- */
+
+    private static void validateYear(final int year) {
+        if (year < MIN_YEAR || year > CURRENT_YEAR) {
+            throw new IllegalArgumentException("Invalid year: " + year);
+        }
+    }
+
+    private static void validateMonth(final int month) {
+        if (month < JANUARY || month > DECEMBER) {
+            throw new IllegalArgumentException("Invalid month: " + month);
+        }
+    }
+
+    private static boolean isLeapYear(final int year) {
+        return (year % FOUR == 0 && year % HUNDRED != 0)
+                || (year % FOUR_HUNDRED == 0);
+    }
+
+    private static void validateDay(final int year, final int month, final int day) {
+        if (day < MIN_DAY) {
+            throw new IllegalArgumentException("Invalid day: " + day);
+        }
+
+        int maxDay;
+
+        switch (month) {
+            case APRIL, JUNE, SEPTEMBER, NOVEMBER -> maxDay = AJSN_MAX_DAY;
+            case FEBRUARY -> maxDay = isLeapYear(year) ? FEB_MAX_DAY : FEB_MIN_DAY;
+            default -> maxDay = REST_MAX_DAY;
+        }
+
+        if (day > maxDay) {
+            throw new IllegalArgumentException("Invalid day: " + day);
+        }
+    }
+
+    /* ---------------- Getters ---------------- */
+
+    public int getDay() { return day; }
+
+    public int getMonth() { return month; }
+
+    public int getYear() { return year; }
+
+    /* ---------------- Formatting ---------------- */
+
+    private static String placeHolder(final int n) {
+        return (n < CHNG_TO_DD ? "0" : "") + n;
+    }
+
+    public String getYYYYMMDD() {
+        return year + "-" + placeHolder(month) + "-" + placeHolder(day);
+    }
+
+    /* ---------------- Day of Week ---------------- */
+
     private int getMonthCode() {
         return switch (month) {
             case JANUARY -> JAN_CODE;
@@ -70,177 +155,32 @@ public class Date {
             case OCTOBER -> OCT_CODE;
             case NOVEMBER -> NOV_CODE;
             case DECEMBER -> DEC_CODE;
-            default -> throw new IllegalArgumentException("Invalid month:"+ month);
+            default -> throw new IllegalArgumentException("Invalid month: " + month);
         };
     }
 
-    /**
-     * Instantiate a Date class with validate helper methods.
-     *
-     * @param year year of the date
-     * @param month month of the date
-     * @param day day of the date
-     */
-   public Date(final int year, final int month, final int day)
-    {
-        validateYear(year);
-        validateMonth(month);
-        validateDay(year, month, day);
-
-        this.year = year;
-        this.month = month;
-        this.day = day;
-    }
-
-    private static void validateYear(final int year)
-    {
-        if(1800 > year || year > CURRENT_YEAR)
-        {
-            throw new IllegalArgumentException("Invalid year: " + year);
-        }
-    }
-
-    private static void validateMonth(final int month)
-    {
-        if(1 > month || month > 12)
-        {
-            throw new IllegalArgumentException("Invalid month: " + month);
-        }
-    }
-
-
-    private static boolean isLeapYear(final int year)
-    {
-
-        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-    }
-
-
-    private static void validateDay(final int year, final int month, final int day)
-    {
-        if(day < 1)
-        {
-            throw new IllegalArgumentException("Invalid day: " + day);
-        }
-
-        int maxDay;
-
-        switch(month)
-        {
-            case APRIL, JUNE, SEPTEMBER, NOVEMBER -> maxDay = AJSN_MIN_DAY;
-            case FEBRUARY -> maxDay = isLeapYear(year) ? FEB_MAX_DAY : FEB_MIN_DAY;
-            default -> maxDay = REST_MAX_DAY;
-        }
-
-        if(day > maxDay)
-        {
-            throw new IllegalArgumentException("Invalid day: " + day);
-        }
-    }
-
-    /**
-     * Returns the day.
-     * @return day
-     */
-    public int getDay()
-    {
-        return day;
-    }
-
-    /**
-     * Returns the month.
-     * @return month
-     */
-    public int getMonth()
-    {
-        return month;
-    }
-
-    /**
-     * Returns the year.
-     * @return year
-     */
-    public int getYear()
-    {
-        return year;
-    }
-
-    private static String pad2(final int n) {
-        return (n < 10 ? "0" : "") + n;
-    }
-
-    /**
-     * Returns the date in YYYYMMDD format.
-     * @return date
-     */
-    public String getYYYYMMDD()
-    {
-        return year + "-" + pad2(month) + "-" + pad2(day);
-    }
-
-    /**
-     * Calculates the day of the week using the COMP2522 algorithm.
-     * <p>
-     * Steps:
-     * 0. Apply Year adjustment (1800s, 1900s, 2000s) and leap year adjustment.
-     * 1. Calculate number of twelves in the year.
-     * 2. Calculate the remainder from step 2.
-     * 3. Calculate number of fours in the remainder.
-     * 4. Add the day of the month.
-     * 5. Add the month code.
-     * 6. Take modulo 7 to determine the day of week.
-     * 7. Convert the number into day of week.
-     * </p>
-     * Day mapping:
-     * 0 = Saturday, 1 = Sunday, 2 = Monday, ..., 6 = Friday
-     *
-     * @return the day of the week
-     */
-    public String getDayOfWeek()
-    {
+    public String getDayOfWeek() {
         int total = 0;
 
-        // Step 0: Year adjustment
-        if(year >= 2000)
-        {
+        if (year >= YEAR_2000) {
             total += SIX;
         }
-        if(year >= 1800 && year < 1900)
-        {
+        if (year >= YEAR_1800 && year < YEAR_1900) {
             total += TWO;
         }
-        if(isLeapYear(year) && (month == 1 || month == 2))
-        {
+        if (isLeapYear(year) && (month == JANUARY || month == FEBRUARY)) {
             total += SIX;
         }
 
-        // Use last two digits of year
-        int yearPart = year % 100;
-
-        // Step 1: number of twelves
+        int yearPart = year % HUNDRED;
         int twelves = yearPart / MONTHS_IN_YEAR;
-        total += twelves;
-
-        // Step 2: remainder
         int remainder = yearPart - (twelves * MONTHS_IN_YEAR);
-        total += remainder;
-
-        // Step 3: number of fours in remainder
         int fours = remainder / FOUR;
-        total += fours;
 
-        // Step 4: add day of month
-        total += day;
-
-        // Step 5: add month code (month - 1 for index)
-        total += getMonthCode();
-
-        // Step 6: modulo 7 gives the number of day of week
+        total += twelves + remainder + fours + day + getMonthCode();
         total %= DAYS_IN_WEEK;
 
-        // Step 7: map the number to the day of week
-        return switch(total)
-        {
+        return switch (total) {
             case 0 -> "saturday";
             case 1 -> "sunday";
             case 2 -> "monday";
@@ -252,12 +192,8 @@ public class Date {
         };
     }
 
-    /**
-     * Returns the name of the month based on its numeric month value
-     * @return the name of the month
-     */
     public String getMonthName() {
-        return switch (month){
+        return switch (month) {
             case JANUARY -> "January";
             case FEBRUARY -> "February";
             case MARCH -> "March";
@@ -270,15 +206,12 @@ public class Date {
             case OCTOBER -> "October";
             case NOVEMBER -> "November";
             case DECEMBER -> "December";
-            default -> throw new IllegalArgumentException("Invalid month: "+ month);
+            default -> throw new IllegalArgumentException("Invalid month: " + month);
         };
     }
 
     @Override
     public String toString() {
-        return getDayOfWeek() + ", "
-                + getMonthName() + " "
-                + day + ", "
-                + year;
+        return getDayOfWeek() + ", " + getMonthName() + " " + day + ", " + year;
     }
 }
