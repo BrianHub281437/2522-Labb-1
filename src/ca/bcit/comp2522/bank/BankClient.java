@@ -91,7 +91,7 @@ public class BankClient {
         if (isAlive()) {
             status = "(alive)";
         } else {
-            status = "(deathDate " + deathDate.getDayOfWeek() + ", "
+            status = "(died " + deathDate.getDayOfWeek() + ", "
                     + deathDate.getMonthName() + " "
                     + deathDate.getDay() + ", "
                     + deathDate.getYear() + ")";
@@ -104,6 +104,6 @@ public class BankClient {
                 + signupDate.getDayOfWeek() + ", "
                 + signupDate.getMonthName() + " "
                 + signupDate.getDay() + ", "
-                + signupDate.getYear() + ".";
+                + signupDate.getYear();
     }
 }

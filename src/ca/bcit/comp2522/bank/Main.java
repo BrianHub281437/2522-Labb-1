@@ -25,7 +25,7 @@ public class Main {
         BankAccount einsteinAccount = new BankAccount(
                 einsteinClient,
                 3141,
-                "abc123",
+                "256123",
                 new Date(1900, 1, 1),
                 new Date(1950, 10, 14)
         );
@@ -94,7 +94,7 @@ public class Main {
         BankAccount kahloAccount = new BankAccount(
                 kahloClient,
                 1907,
-                "frd123",
+                "672123",
                 new Date(1940, 1, 1),
                 new Date(1954, 7, 13)
         );
@@ -128,7 +128,7 @@ public class Main {
         BankAccount chanAccount = new BankAccount(
                 chanClient,
                 1954,
-                "chan789",
+                "496789",
                 new Date(1980, 10, 1),
                 null
         );

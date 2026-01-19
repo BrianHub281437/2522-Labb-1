@@ -124,7 +124,7 @@ public class BankAccount {
         return client.getName().getFullName()
                 + " had $" + balanceUSD + " USD in account #"
                 + accountNumber
-                + " which opened on " + accountOpened
+                + " which he opened on " + accountOpened
                 + closeStatus + ".";
     }
 }
