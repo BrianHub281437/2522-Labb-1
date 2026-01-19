@@ -4,12 +4,13 @@ package ca.bcit.comp2522.bank;
  * Represents a Date class that is used for BankAccount and BankClient.
  * A Date class stores the year, month and day of the date.
  *
- * @author Giant Mak, Brian Lau
+ * @author Giant Mak
+ * @author Brian Lau
+ *
  * @version 1.0
  */
 public class Date {
 
-    /* Date fields */
     private final int year;
     private final int month;
     private final int day;
@@ -21,11 +22,11 @@ public class Date {
     /* Time constants */
     private static final int MONTHS_IN_YEAR = 12;
     private static final int DAYS_IN_WEEK = 7;
-    private static final int FOUR = 4;
-    private static final int SIX = 6;
-    private static final int TWO = 2;
-    private static final int HUNDRED = 100;
-    private static final int FOUR_HUNDRED = 400;
+    private static final int FOUR_STEPS_TWO = 4;
+    private static final int ADDED_SIX = 6;
+    private static final int ADDED_TWO = 2;
+    private static final int CENTURY_MOD = 100;
+    private static final int YEARS_BETWEEN_LEAP_YEARS = 400;
 
     /* Month numbers */
     private static final int JANUARY = 1;
@@ -67,16 +68,20 @@ public class Date {
     private static final int YEAR_1900 = 1900;
     private static final int YEAR_2000 = 2000;
 
-    /* changed single digits to double digits */
+    /* constant that changes single digits to double digits */
     private static final int CHNG_TO_DD = 10;
 
     /**
      * Constructs a Date with validation.
+     *
      * @param year of the date
      * @param month of the date
      * @param day of the date
      */
-    public Date(final int year, final int month, final int day) {
+    public Date(final int year,
+                final int month,
+                final int day)
+    {
         validateYear(year);
         validateMonth(month);
         validateDay(year, month, day);
@@ -88,8 +93,14 @@ public class Date {
 
     /* ---------------- Validation ---------------- */
 
-    private static void validateYear(final int year) {
-        if (year < MIN_YEAR || year > CURRENT_YEAR) {
+    /*
+     *
+     * @param year the year to be validated
+     */
+    private static void validateYear(final int year)
+    {
+        if (year < MIN_YEAR || year > CURRENT_YEAR)
+        {
             throw new IllegalArgumentException("Invalid year: " + year);
         }
     }
@@ -101,8 +112,8 @@ public class Date {
     }
 
     private static boolean isLeapYear(final int year) {
-        return (year % FOUR == 0 && year % HUNDRED != 0)
-                || (year % FOUR_HUNDRED == 0);
+        return (year % YEARS_BETWEEN_LEAP_YEARS == 0 && year % CENTURY_MOD != 0)
+                || (year % YEARS_BETWEEN_LEAP_YEARS == 0);
     }
 
     private static void validateDay(final int year, final int month, final int day) {
@@ -165,19 +176,19 @@ public class Date {
         int total = 0;
 
         if (year >= YEAR_2000) {
-            total += SIX;
+            total += ADDED_SIX;
         }
         if (year >= YEAR_1800 && year < YEAR_1900) {
-            total += TWO;
+            total += ADDED_TWO;
         }
         if (isLeapYear(year) && (month == JANUARY || month == FEBRUARY)) {
-            total += SIX;
+            total += ADDED_SIX;
         }
 
-        int yearPart = year % HUNDRED;
+        int yearPart = year % CENTURY_MOD;
         int twelves = yearPart / MONTHS_IN_YEAR;
         int remainder = yearPart - (twelves * MONTHS_IN_YEAR);
-        int fours = remainder / FOUR;
+        int fours = remainder / FOUR_STEPS_TWO;
 
         total += twelves + remainder + fours + day + getMonthCode();
         total %= DAYS_IN_WEEK;
