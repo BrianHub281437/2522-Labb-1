@@ -73,6 +73,8 @@ public class Date {
     /**
      * Constructs a Date with validation.
      * @param year of the date
+     * @param month of the date
+     * @param day of the date
      */
     public Date(final int year, final int month, final int day) {
         validateYear(year);
