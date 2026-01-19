@@ -247,6 +247,28 @@ public class Date {
         };
     }
 
+    /**
+     * Returns the name of the month based on its numeric month value
+     * @return the name of the month
+     */
+    public String getMonthName() {
+        return switch (month){
+            case JANUARY -> "January";
+            case FEBRUARY -> "February";
+            case MARCH -> "March";
+            case APRIL -> "April";
+            case MAY -> "May";
+            case JUNE -> "June";
+            case JULY -> "July";
+            case AUGUST -> "August";
+            case SEPTEMBER -> "September";
+            case OCTOBER -> "October";
+            case NOVEMBER -> "November";
+            case DECEMBER -> "December";
+            default -> throw new IllegalArgumentException("Invalid month: "+ month);
+        };
+    }
+
     @Override
     public String toString() {
         return getDayOfWeek() + ", "
