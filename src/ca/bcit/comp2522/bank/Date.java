@@ -47,6 +47,11 @@ public class Date {
     private static final int OCT_CODE = 1;
     private static final int NOV_CODE = 4;
     private static final int DEC_CODE = 6;
+
+    private static final int FEB_MAX_DAY = 29;
+    private static final int FEB_MIN_DAY = 28;
+    private static final int AJSN_MIN_DAY = 30;
+    private static final int REST_MAX_DAY = 31;
     /**
      *
      * @return month code for each month
@@ -122,9 +127,9 @@ public class Date {
 
         switch(month)
         {
-            case APRIL, JUNE, SEPTEMBER, NOVEMBER -> maxDay = 30;
-            case FEBRUARY -> maxDay = isLeapYear(year) ? 29 : 28;
-            default -> maxDay = 31;
+            case APRIL, JUNE, SEPTEMBER, NOVEMBER -> maxDay = AJSN_MIN_DAY;
+            case FEBRUARY -> maxDay = isLeapYear(year) ? FEB_MAX_DAY : FEB_MIN_DAY;
+            default -> maxDay = REST_MAX_DAY;
         }
 
         if(day > maxDay)
