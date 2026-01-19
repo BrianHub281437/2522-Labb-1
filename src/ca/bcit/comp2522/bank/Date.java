@@ -1,12 +1,14 @@
 package ca.bcit.comp2522.bank;
 
 /**
- * Date:
+ * Represents a Date class that is used for BankAccount and BankClient
+ * A Date class stores the year, month and day of the date.
+ * Contains simple methods to calculate
  *
- * @author Giant Mak
+ * @author Giant Mak, Brian Lau
  * @version 1.0
  */
-class Date {
+public class Date {
     private final int year;
     private final int month;
     private final int day;
@@ -20,22 +22,23 @@ class Date {
     private static final int SIX            = 6;
     private static final int TWO            = 2;
 
-    /* Month code for each month */
-    private static final int[] MONTH_CODES =
-    {
-        1, // January
-        4, // February
-        4, // March
-        0, // April
-        2, // May
-        5, // June
-        0, // July
-        3, // August
-        6, // September
-        1, // October
-        4, // November
-        6  // December
-    };
+    private int getMonthCode() {
+        return switch (month) {
+            case 1 -> 1;
+            case 2 -> 4;
+            case 3 -> 4;
+            case 4 -> 0;
+            case 5 -> 2;
+            case 6 -> 5;
+            case 7 -> 0;
+            case 8 -> 3;
+            case 9 -> 6;
+            case 10 -> 1;
+            case 11 -> 4;
+            case 12 -> 6;
+            default -> throw new IllegalArgumentException("Invalid month:"+ month);
+        };
+    }
 
     /**
      * Instantiate a Date class with validate helper methods.
@@ -44,7 +47,7 @@ class Date {
      * @param month month of the date
      * @param day day of the date
      */
-    Date(final int year, final int month, final int day)
+   public Date(final int year, final int month, final int day)
     {
         validateYear(year);
         validateMonth(month);
@@ -55,12 +58,6 @@ class Date {
         this.day = day;
     }
 
-    /**
-     * Validates the year of the date.
-     *
-     * @param year year of the date
-     * @throws IllegalArgumentException if the year is not between 1800 and current year
-     */
     private static void validateYear(int year)
     {
         if(1800 > year || year > CURRENT_YEAR)
@@ -69,12 +66,6 @@ class Date {
         }
     }
 
-    /**
-     * Validates the month of the date.
-     *
-     * @param month month of the date
-     * @throws IllegalArgumentException if the month is not between 1-12
-     */
     private static void validateMonth(int month)
     {
         if(1 > month || month > 12)
@@ -83,24 +74,35 @@ class Date {
         }
     }
 
-    /**
-     * Helper method to determine if the year is a leap year
-     * @param year year of the date
-     * @return true if the year is leap year, false otherwise
-     */
+
     private static boolean isLeapYear(int year)
     {
+
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
     /**
-     * Validates the day of the date.
-     *
-     * @param year year of the date
-     * @param month month of the date
-     * @param day day of the date
-     * @throws IllegalArgumentException if the date exceeds the max day limit of the month
+     * Returns the name of the month based on its numeric month value
+     * @return the name of the month
      */
+    public String getMonthName() {
+        return switch (month){
+            case 1 -> "January";
+            case 2 -> "February";
+            case 3 -> "March";
+            case 4 -> "April";
+            case 5 -> "May";
+            case 6 -> "June";
+            case 7 -> "July";
+            case 8 -> "August";
+            case 9 -> "September";
+            case 10 -> "October";
+            case 11 -> "November";
+            case 12 -> "December";
+            default -> throw new IllegalArgumentException("Invalid month: "+ month);
+        };
+    }
+
     private static void validateDay(int year, int month, int day)
     {
         if(day < 1)
@@ -127,7 +129,7 @@ class Date {
      * Returns the day.
      * @return day
      */
-    int getDay()
+    public int getDay()
     {
         return day;
     }
@@ -136,7 +138,7 @@ class Date {
      * Returns the month.
      * @return month
      */
-    int getMonth()
+    public int getMonth()
     {
         return month;
     }
@@ -145,18 +147,22 @@ class Date {
      * Returns the year.
      * @return year
      */
-    int getYear()
+    public int getYear()
     {
         return year;
+    }
+
+    private static String pad2(final int n) {
+        return (n < 10 ? "0" : "") + n;
     }
 
     /**
      * Returns the date in YYYYMMDD format.
      * @return date
      */
-    String getYYYYMMDD()
+    public String getYYYYMMDD()
     {
-        return year + "-" + month + "-" + day;
+        return year + "-" + pad2(month) + "-" + pad2(day);
     }
 
     /**
@@ -177,7 +183,7 @@ class Date {
      *
      * @return the day of the week
      */
-    String getDayOfWeek()
+    public String getDayOfWeek()
     {
         int total = 0;
 
@@ -186,11 +192,11 @@ class Date {
         {
             total += SIX;
         }
-        else if(year >= 1800 && year < 1900)
+        if(year >= 1800 && year < 1900)
         {
             total += TWO;
         }
-        else if(isLeapYear(year) && (month == 1 || month == 2))
+        if(isLeapYear(year) && (month == 1 || month == 2))
         {
             total += SIX;
         }
@@ -214,7 +220,7 @@ class Date {
         total += day;
 
         // Step 5: add month code (month - 1 for index)
-        total += MONTH_CODES[month - 1];
+        total += getMonthCode();
 
         // Step 6: modulo 7 gives the number of day of week
         total %= DAYS_IN_WEEK;
@@ -233,4 +239,11 @@ class Date {
         };
     }
 
+    @Override
+    public String toString() {
+        return getDayOfWeek() + ", "
+                + getMonthName() + " "
+                + day + ", "
+                + year;
+    }
 }

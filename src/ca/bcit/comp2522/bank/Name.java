@@ -1,17 +1,15 @@
 package ca.bcit.comp2522.bank;
 
-import java.lang.StringBuilder;
-
 /**
- * Name: A class that stores a person's first and last name
+ * A Name class that stores a BankClient's first and last name
  * with few simple methods.
  *
- * @author Giant
+ * @author Giant, Brian
  * @version 1.0
  */
-class Name
+public class Name
 {
-    /** The person's first name and last name*/
+    /** The BankClient's first name and last name*/
     private final String first;
     private final String last;
 
@@ -23,7 +21,7 @@ class Name
      * @param first first name
      * @param last last name
      */
-    Name(final String first, final String last)
+   public Name(final String first, final String last)
     {
         validateName(first);
         validateName(last);
@@ -41,7 +39,7 @@ class Name
      */
     private static void validateName(final String name)
     {
-        if(name == null || name.isBlank() || name.length() >= MAX_CHARACTER_LENGTH || name.equalsIgnoreCase("admin"))
+        if(name == null || name.isBlank() || name.length() >= MAX_CHARACTER_LENGTH || name.toLowerCase().contains("admin"))
         {
             throw new IllegalArgumentException("Name is not valid: " + name);
         }
@@ -52,8 +50,9 @@ class Name
      *
      * @return the first name
      */
-    String getFirst()
+    public String getFirst()
     {
+
         return first;
     }
 
@@ -62,8 +61,9 @@ class Name
      *
      * @return the last name
      */
-    String getLast()
+    public String getLast()
     {
+
         return last;
     }
 
@@ -74,6 +74,7 @@ class Name
      * @return the uppercase first character
      */
     private char getInitial(final String name) {
+
         return Character.toUpperCase(name.charAt(0));
     }
 
@@ -82,8 +83,9 @@ class Name
      *
      * @return the initials
      */
-    String getInitials()
+    public String getInitials()
     {
+
         return getInitial(first) + "." + getInitial(last) + ".";
     }
 
@@ -95,6 +97,7 @@ class Name
      */
     private String capitalizeInitial(final String name)
     {
+
         return getInitial(name) + name.substring(1).toLowerCase();
     }
 
@@ -103,7 +106,7 @@ class Name
      *
      * @return the full name
      */
-    String getFullName()
+    public String getFullName()
     {
         return capitalizeInitial(first) + " " + capitalizeInitial(last);
     }
@@ -113,12 +116,10 @@ class Name
      *
      * @return the reversed name
      */
-    String getRevsereName()
+    public String getReverseName()
     {
-        String fullName = first + " " + last;
-        StringBuilder stringBuilder = new StringBuilder(fullName);
-
-        stringBuilder.reverse();
-        return stringBuilder.toString();
+       return new StringBuilder(last).reverse().toString()
+               + " "
+               + new StringBuilder(first).reverse().toString();
     }
 }
