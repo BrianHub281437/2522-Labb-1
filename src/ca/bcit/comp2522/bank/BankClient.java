@@ -5,7 +5,9 @@ package ca.bcit.comp2522.bank;
  * A BankClient has a name, a birthdate, an optional death date,
  * a unique client ID, and a signup date with the bank.
  *
- * @author Brian Lau, Giant Mak
+ * @author Brian Lau
+ * @author Giant Mak
+ * @version 1.0
  */
 public class BankClient {
 

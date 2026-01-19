@@ -5,7 +5,8 @@ package ca.bcit.comp2522.bank;
  * A bank account has an account number, a PIN, a balance in USD,
  * an opening date, and an optional closing date.
  *
- * @author Brian Lau, Giant Mak
+ * @author Brian Lau
+ * @author Giant Mak
  * @version 1.0
  */
 public class BankAccount {

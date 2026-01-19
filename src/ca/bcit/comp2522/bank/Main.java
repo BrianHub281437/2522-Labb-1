@@ -4,7 +4,8 @@ package ca.bcit.comp2522.bank;
  * A Main class that demonstrates examples of bankAccount
  * with few simple methods.
  *
- * @author Giant, Brian
+ * @author Giant
+ * @author Brian
  * @version 1.0
  */
 
