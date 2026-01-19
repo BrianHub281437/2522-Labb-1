@@ -1,18 +1,30 @@
 package ca.bcit.comp2522.bank;
 
+/**
+ * A Main class that demonstrates examples of bankAccount
+ * with few simple methods.
+ *
+ * @author Giant, Brian
+ * @version 1.0
+ */
+
 public class Main {
-    public static void main(String[] args) {
+    /**
+     * Drives the program with celebrity exmamples.
+     * @param args unused
+     */
+    public static void main(final String[] args) {
 
         /* Albert Einstein */
-        Name einsteinName = new Name("Albert", "Einstein");
-        Date einsteinBirth = new Date(1879, 3, 14);
-        Date einsteinDeath = new Date(1955, 4, 18);
+        final Name einsteinName = new Name("Albert", "Einstein");
+        final Date einsteinBirth = new Date(1879, 3, 14);
+        final Date einsteinDeath = new Date(1955, 4, 18);
 
         System.out.println(einsteinName.getInitials());
         System.out.println(einsteinName.getFullName());
         System.out.println(einsteinName.getReverseName());
 
-        BankClient einsteinClient = new BankClient(
+        final BankClient einsteinClient = new BankClient(
                 einsteinName,
                 einsteinBirth,
                 einsteinDeath,
@@ -22,7 +34,7 @@ public class Main {
 
         System.out.println(einsteinClient.getDetails());
 
-        BankAccount einsteinAccount = new BankAccount(
+        final BankAccount einsteinAccount = new BankAccount(
                 einsteinClient,
                 3141,
                 "256123",
@@ -38,15 +50,15 @@ public class Main {
         System.out.println();
 
         /* Nelson Mandela */
-        Name mandelaName = new Name("Nelson", "Mandela");
-        Date mandelaBirth = new Date(1918, 7, 18);
-        Date mandelaDeath = new Date(2013, 12, 5);
+        final Name mandelaName = new Name("Nelson", "Mandela");
+        final Date mandelaBirth = new Date(1918, 7, 18);
+        final Date mandelaDeath = new Date(2013, 12, 5);
 
         System.out.println(mandelaName.getInitials());
         System.out.println(mandelaName.getFullName());
         System.out.println(mandelaName.getReverseName());
 
-        BankClient mandelaClient = new BankClient(
+        final BankClient mandelaClient = new BankClient(
                 mandelaName,
                 mandelaBirth,
                 mandelaDeath,
@@ -56,7 +68,7 @@ public class Main {
 
         System.out.println(mandelaClient.getDetails());
 
-        BankAccount mandelaAccount = new BankAccount(
+        final BankAccount mandelaAccount = new BankAccount(
                 mandelaClient,
                 4664,
                 "654321",
@@ -73,15 +85,15 @@ public class Main {
 
 
         /* Frida Kahlo */
-        Name kahloName = new Name("Frida", "Kahlo");
-        Date kahloBirth = new Date(1907, 7, 6);
-        Date kahloDeath = new Date(1954, 7, 13);
+        final Name kahloName = new Name("Frida", "Kahlo");
+        final Date kahloBirth = new Date(1907, 7, 6);
+        final Date kahloDeath = new Date(1954, 7, 13);
 
         System.out.println(kahloName.getInitials());
         System.out.println(kahloName.getFullName());
         System.out.println(kahloName.getReverseName());
 
-        BankClient kahloClient = new BankClient(
+        final BankClient kahloClient = new BankClient(
                 kahloName,
                 kahloBirth,
                 kahloDeath,
@@ -91,7 +103,7 @@ public class Main {
 
         System.out.println(kahloClient.getDetails());
 
-        BankAccount kahloAccount = new BankAccount(
+        final BankAccount kahloAccount = new BankAccount(
                 kahloClient,
                 1907,
                 "672123",
@@ -108,14 +120,14 @@ public class Main {
 
 
         /* Jackie Chan */
-        Name chanName = new Name("Jackie", "Chan");
-        Date chanBirth = new Date(1954, 4, 7);
+        final Name chanName = new Name("Jackie", "Chan");
+        final Date chanBirth = new Date(1954, 4, 7);
 
         System.out.println(chanName.getInitials());
         System.out.println(chanName.getFullName());
         System.out.println(chanName.getReverseName());
 
-        BankClient chanClient = new BankClient(
+        final BankClient chanClient = new BankClient(
                 chanName,
                 chanBirth,
                 null,
@@ -125,7 +137,7 @@ public class Main {
 
         System.out.println(chanClient.getDetails());
 
-        BankAccount chanAccount = new BankAccount(
+        final BankAccount chanAccount = new BankAccount(
                 chanClient,
                 1954,
                 "496789",

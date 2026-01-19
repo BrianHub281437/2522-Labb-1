@@ -22,20 +22,49 @@ public class Date {
     private static final int SIX            = 6;
     private static final int TWO            = 2;
 
+    private static final int JANUARY = 1;
+    private static final int FEBRUARY = 2;
+    private static final int MARCH = 3;
+    private static final int APRIL = 4;
+    private static final int MAY = 5;
+    private static final int JUNE = 6;
+    private static final int JULY = 7;
+    private static final int AUGUST = 8;
+    private static final int SEPTEMBER = 9;
+    private static final int OCTOBER = 10;
+    private static final int NOVEMBER = 11;
+    private static final int DECEMBER = 12;
+
+    private static final int JAN_CODE = 1;
+    private static final int FEB_CODE = 4;
+    private static final int MAR_CODE = 4;
+    private static final int APR_CODE = 0;
+    private static final int MAY_CODE = 2;
+    private static final int JUN_CODE = 5;
+    private static final int JUL_CODE = 0;
+    private static final int AUG_CODE = 3;
+    private static final int SEP_CODE = 6;
+    private static final int OCT_CODE = 1;
+    private static final int NOV_CODE = 4;
+    private static final int DEC_CODE = 6;
+    /**
+     *
+     * @return month code for each month
+     */
     private int getMonthCode() {
         return switch (month) {
-            case 1 -> 1;
-            case 2 -> 4;
-            case 3 -> 4;
-            case 4 -> 0;
-            case 5 -> 2;
-            case 6 -> 5;
-            case 7 -> 0;
-            case 8 -> 3;
-            case 9 -> 6;
-            case 10 -> 1;
-            case 11 -> 4;
-            case 12 -> 6;
+            case JANUARY -> JAN_CODE;
+            case FEBRUARY -> FEB_CODE;
+            case MARCH -> MAR_CODE;
+            case APRIL -> APR_CODE;
+            case MAY -> MAY_CODE;
+            case JUNE -> JUN_CODE;
+            case JULY -> JUL_CODE;
+            case AUGUST -> AUG_CODE;
+            case SEPTEMBER -> SEP_CODE;
+            case OCTOBER -> OCT_CODE;
+            case NOVEMBER -> NOV_CODE;
+            case DECEMBER -> DEC_CODE;
             default -> throw new IllegalArgumentException("Invalid month:"+ month);
         };
     }
@@ -58,7 +87,7 @@ public class Date {
         this.day = day;
     }
 
-    private static void validateYear(int year)
+    private static void validateYear(final int year)
     {
         if(1800 > year || year > CURRENT_YEAR)
         {
@@ -66,7 +95,7 @@ public class Date {
         }
     }
 
-    private static void validateMonth(int month)
+    private static void validateMonth(final int month)
     {
         if(1 > month || month > 12)
         {
@@ -75,35 +104,14 @@ public class Date {
     }
 
 
-    private static boolean isLeapYear(int year)
+    private static boolean isLeapYear(final int year)
     {
 
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    /**
-     * Returns the name of the month based on its numeric month value
-     * @return the name of the month
-     */
-    public String getMonthName() {
-        return switch (month){
-            case 1 -> "January";
-            case 2 -> "February";
-            case 3 -> "March";
-            case 4 -> "April";
-            case 5 -> "May";
-            case 6 -> "June";
-            case 7 -> "July";
-            case 8 -> "August";
-            case 9 -> "September";
-            case 10 -> "October";
-            case 11 -> "November";
-            case 12 -> "December";
-            default -> throw new IllegalArgumentException("Invalid month: "+ month);
-        };
-    }
 
-    private static void validateDay(int year, int month, int day)
+    private static void validateDay(final int year, final int month, final int day)
     {
         if(day < 1)
         {
@@ -114,8 +122,8 @@ public class Date {
 
         switch(month)
         {
-            case 4, 6, 9, 11 -> maxDay = 30;
-            case 2 -> maxDay = isLeapYear(year) ? 29 : 28;
+            case APRIL, JUNE, SEPTEMBER, NOVEMBER -> maxDay = 30;
+            case FEBRUARY -> maxDay = isLeapYear(year) ? 29 : 28;
             default -> maxDay = 31;
         }
 

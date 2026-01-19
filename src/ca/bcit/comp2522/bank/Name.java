@@ -4,7 +4,8 @@ package ca.bcit.comp2522.bank;
  * A Name class that stores a BankClient's first and last name
  * with few simple methods.
  *
- * @author Giant, Brian
+ * @author Giant Mak
+ * @author Brian Lau
  * @version 1.0
  */
 public class Name
@@ -13,15 +14,16 @@ public class Name
     private final String first;
     private final String last;
 
-    /* The maximum of name; must be fewer than 45 characters */
-    private static final int MAX_CHARACTER_LENGTH = 45;
+    private static final int MAX_CHARACTER_LENGTH = 100;
 
     /**
      * Instantiate a name value with first and last name.
+     *
      * @param first first name
      * @param last last name
      */
-   public Name(final String first, final String last)
+   public Name(final String first,
+               final String last)
     {
         validateName(first);
         validateName(last);
@@ -118,8 +120,8 @@ public class Name
      */
     public String getReverseName()
     {
-       return new StringBuilder(last).reverse().toString()
-               + " "
-               + new StringBuilder(first).reverse().toString();
+       return new StringBuilder(last).reverse().toString() +
+               " " +
+               new StringBuilder(first).reverse().toString();
     }
 }
