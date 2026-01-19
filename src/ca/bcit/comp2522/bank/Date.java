@@ -47,6 +47,10 @@ public class Date {
     private static final int OCT_CODE = 1;
     private static final int NOV_CODE = 4;
     private static final int DEC_CODE = 6;
+
+    private static final int YEAR_MINIMUM = 1800;
+
+    private static final int DAY_INTERVAL = 1;
     /**
      *
      * @return month code for each month
@@ -89,7 +93,7 @@ public class Date {
 
     private static void validateYear(final int year)
     {
-        if(1800 > year || year > CURRENT_YEAR)
+        if(YEAR_MINIMUM > year || year > CURRENT_YEAR)
         {
             throw new IllegalArgumentException("Invalid year: " + year);
         }
@@ -97,7 +101,7 @@ public class Date {
 
     private static void validateMonth(final int month)
     {
-        if(1 > month || month > 12)
+        if(JANUARY > month || month > DECEMBER)
         {
             throw new IllegalArgumentException("Invalid month: " + month);
         }
@@ -113,7 +117,7 @@ public class Date {
 
     private static void validateDay(final int year, final int month, final int day)
     {
-        if(day < 1)
+        if(day < DAY_INTERVAL)
         {
             throw new IllegalArgumentException("Invalid day: " + day);
         }
